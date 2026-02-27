@@ -12,7 +12,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         Title = "Break Timer";
     }
-    
+    // Timer method, decrement minutes every sixty seconds, update display text
     private void Tick()
     {
         intSec++;
@@ -23,7 +23,7 @@ public partial class MainPage : ContentPage
         }
         lblDisplay.Text = $"{intMin} minutes left";
     }
-
+    // Method to alternate screen from white to red every second
     private void StartFlashing()
     {
         isFlashing = true;
@@ -47,13 +47,16 @@ public partial class MainPage : ContentPage
         
         Application.Current.Dispatcher.StartTimer(TimeSpan.FromSeconds(1), () =>
         {
-            
+            // Check if timer has hit zero before ticking
             if (intMin == 0 && intSec == 0)
             {
+                // Turn off timer, start flashing red, change label
                 isRunning = false;
                 lblDisplay.Text = "Time's up! Back to Work!";
                 StartFlashing();
             }
+            
+            // Runs timer while minutes and seconds are > zero
             if (isRunning)
             {
                 Tick();
